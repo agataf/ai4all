@@ -10,7 +10,7 @@ More information:
   `cd ai4all_dir`
 
   `git clone https://github.com/agataf/ai4all`
-- you should technically request data from the SOC department, but for the three of us I'm putting it up here: 
+- you should technically request data from the SOC department, but for the three of us I'm putting it up here. Please don't share this with anyone. 
   * https://drive.google.com/drive/folders/1DYnjfqIxZCrAYc7juV0UplvZlwTNDxJ8?usp=sharing
 - download the data to a directory called ai4all_data next to ai4all
 
