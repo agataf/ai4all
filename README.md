@@ -1,6 +1,6 @@
 # ai4all
 
-#### Setup:
+# Setup:
 - clone this directory 
 `cd ai4all_dir`
 
@@ -26,4 +26,4 @@
 
 `jupyter notebook`
 
-#### Data
+# Data
