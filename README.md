@@ -1,6 +1,10 @@
 # Background
 The Fragile Families Challenge is a large-scale interdisciplinary research initiative to collect and analyze data in order to yield insights that can improve the lives of disadvantaged children.  Researchers have used this data to develop models that predict key attributes affecting disadvantaged children and to suggest new policies to improve child outcomes. In this project, you will use data collected as a part of the Fragile Families Challenge to uncover factors that influence young people’s academic performance, confidence and grit, and psychological well-being. You will generate scientific questions and perform data exploration, feature selection, and machine learning to evaluate your hypotheses. You will explore alternative explanations for your results and work closely with Princeton social scientists to refine your hypotheses. You will also work together to design policy proposals based on your findings that would help provide services and programs to facilitate children’s success.
 
+More information:
+
+  http://www.fragilefamilieschallenge.org/
+
 # Setup:
 - clone this directory 
   `cd ai4all_dir`
