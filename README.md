@@ -4,6 +4,15 @@ The Fragile Families Challenge is a large-scale interdisciplinary research initi
 More information:
 
   http://www.fragilefamilieschallenge.org/
+  
+See the "getting started" slides here:
+
+  https://github.com/fragilefamilieschallenge/slides/blob/master/ffchallenge_getting_started_cos424.pdf
+  
+# Data
+We use the Fragile Families Challenge data. The data has been collected since children's birth at 7 time points: birth, year 1, 3, 5, 9 and 15. The goal of the challenge is to predict 6 outcomes (GPA, grit, eviction, job training, 2 more) at age 15 based on the variables from earlier time points. There are more than those 6 variables that we could get access to for age 15, if they'll be easier.
+
+The train and test splits are done for us. The training set consists of 12,000 variables across 3,200 families. The test set consists of 6 variables across ~2,000 families. Our goal is to predict those six variables for the remaining ~1,000 families.
 
 # Setup:
 - clone this directory 
@@ -30,6 +39,3 @@ More information:
   `cd ai4all_dir/ai4all`
 
   `jupyter notebook`
-
-# Data
-We use the Fragile Families Challenge data. The training set consists of 12,000 variables across 3,200 families. The test set consists of 6 variables across ~2,000 families. Our goal is to predict those six variables for the remaining ~1,000 families.
