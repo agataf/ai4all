@@ -16,7 +16,21 @@ The train and test splits are done for us. The training set consists of 12,000 v
 
 Each variable has a dictionary of features associated with it, such as: source (constructed/weight/id number/...), respondent (father/mother/teacher), umbrella category (parental relationship, health and health behavior,...) and others. You can view variables by their features here: http://browse.fragilefamiliesmetadata.org/variables.
 
-Starting this year, there is also an API available which allow us 
+Starting this year, there is also an API available which allow us to subselect only the variables with particular features. There are 3 functions in this API:
+
+`select(varName, fieldName)`
+    Returns metadata for variable varName.
+    (Optionally, returns only the field specified by fieldName.)
+
+`filter(*fieldNames)`
+    Return a list of variables where fieldName matches the provided value.
+
+`search(query, fieldName)`
+    Return a list of variables where query is found in fieldName.
+ 
+ To access the api, you need the `ff.py` file in your directory, then `import ff` and call the abovementioned functions as `ff.select(...)`
+ 
+ Examples of the API use can be seen in `preprocess.ipynb`
 
 # Setup:
 - clone this directory 
