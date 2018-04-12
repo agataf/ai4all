@@ -14,6 +14,10 @@ We use the Fragile Families Challenge data. The data has been collected since ch
 
 The train and test splits are done for us. The training set consists of 12,000 variables across 3,200 families. The test set consists of 6 variables across ~2,000 families. Our goal is to predict those six variables for the remaining ~1,000 families.
 
+Each variable has a dictionary of features associated with it, such as: source (constructed/weight/id number/...), respondent (father/mother/teacher), umbrella category (parental relationship, health and health behavior,...) and others. You can view variables by their features here: http://browse.fragilefamiliesmetadata.org/variables.
+
+Starting this year, there is also an API available which allow us 
+
 # Setup:
 - clone this directory 
   `cd ai4all_dir`
