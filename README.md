@@ -64,4 +64,4 @@ Starting this year, there is also an API available which allow us to subselect o
 
 - to be able to run Derek's files, you'll need the fancyimpute library:
 
-  `pip install git+https://github.com/iskandr/fancyimpute@master`
+  `pip2.7 install git+https://github.com/iskandr/fancyimpute@master`
