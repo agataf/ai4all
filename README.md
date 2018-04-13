@@ -5,6 +5,10 @@ More information:
 
   http://www.fragilefamilieschallenge.org/
   
+Watch the "getting started" video:
+
+  https://www.youtube.com/watch?v=HrYPtdXeSaM&feature=youtu.be
+  
 See the "getting started" slides here:
 
   https://github.com/fragilefamilieschallenge/slides/blob/master/ffchallenge_getting_started_cos424.pdf
