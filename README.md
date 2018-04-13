@@ -61,3 +61,7 @@ Starting this year, there is also an API available which allow us to subselect o
   `cd ai4all_dir/ai4all`
 
   `jupyter notebook`
+
+- to be able to run Derek's files, you'll need the fancyimpute library:
+
+  `pip install git+https://github.com/iskandr/fancyimpute@master`
