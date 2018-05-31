@@ -55,7 +55,7 @@ Starting this year, there is also an API available which allow us to subselect o
 
   `python -m pip install jupyter`
 
-- I'm assuming Python2.7 - let me know if you want to use Python3
+- MAKE SURE YOU'RE USING PYTHON 3!
 - to run jupyter notebook:
 
   `cd ai4all_dir/ai4all`
