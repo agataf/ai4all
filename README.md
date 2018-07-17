@@ -29,7 +29,7 @@ Note: Although this data is anonymized, it is still highly sensitive and should 
 
 # Metadata - variable description
 
-Each variable has a dictionary of features associated with it, such as: source (constructed/weight/id number/...), respondent (father/mother/teacher), umbrella category (parental relationship, health and health behavior,...) and others. You can view variables by their features here: http://browse.fragilefamiliesmetadata.org/variables.
+Each variable has a dictionary of features associated with it, such as: source (constructed/weight/id number/...), respondent (father/mother/teacher), umbrella category (parental relationship, health and health behavior,...) and others. You can view variables by their features here: http://metadata.fragilefamilies.princeton.edu/variables.
 
 Starting this year, there is also an API available which allow us to subselect only the variables with particular features. There are 3 functions in this API:
 
