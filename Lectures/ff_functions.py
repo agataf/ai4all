@@ -46,7 +46,6 @@ def plot_one_histogram(data, label="", xlabel="", ylabel="", title=""):
     plt.ylabel(ylabel)
     plt.title(title)
     plt.legend(loc="upper right")
-    plt.show()
 
 '''
 Plot two overlapping histograms based on two 1D DataFrames
@@ -67,24 +66,35 @@ def plot_two_histograms(data1, data2, label1="", label2="", xlabel="", ylabel=""
     plt.title(title)
     # Plot a legend so that we can match the color of the histogram to the data.
     plt.legend(loc="upper right")
-    # Show the plot
-    plt.show()
-
 '''
 This function takes in two arrays of equal length (xdata, ydata)
 and plots them against each other in a scatterplot
 '''
 def scatterplot(xdata, ydata, xlabel="", ylabel="", title=""):
     fig = plt.figure(figsize=(7,7))
-    data_max = max(max(xdata), max(ydata))
     plt.scatter(xdata, ydata)
     #plt.plot([0,data_max],[0,data_max])
-    plt.xlim(0,max(xdata))
-    plt.ylim(0,max(ydata))
+    plt.xlim(min(xdata)-1,max(xdata)+1)
+    plt.ylim(min(ydata)-1,max(ydata)+1)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
-    fig.show()
+
+'''
+This function takes in two arrays of equal length (xdata, ydata)
+and plots them against each other in a scatterplot
+With a line with a given intercept and slope overlaid on top
+'''
+def scatterplot_with_line(xdata, ydata, slope, intercept, xlabel="", ylabel="", title=""):
+    fig = plt.figure(figsize=(7,5))
+    plt.scatter(xdata, ydata)
+    x = np.linspace(min(xdata)-1,max(xdata)+1, 100)
+    plt.plot(x, slope*x+intercept)
+    plt.xlim(min(xdata)-1,max(xdata)+1)
+    plt.ylim(min(ydata)-1,max(ydata)+1)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
 
 def two_bar_charts(data1, data2, label1="", label2="", bar_labels=[]):
     labels = np.arange(4)
@@ -99,7 +109,6 @@ def two_bar_charts(data1, data2, label1="", label2="", bar_labels=[]):
     ax1.set_xticklabels(bar_labels)
     ax2.set_xticks(labels+0.4)
     ax2.set_xticklabels(bar_labels)
-    plt.show()
 
 def one_bar_chart(data, label="", bar_labels=[]):
     labels = np.arange(4)
@@ -109,7 +118,6 @@ def one_bar_chart(data, label="", bar_labels=[]):
     ax.bar(labels, data)
     ax.set_xticks(labels+0.4)
     ax.set_xticklabels(bar_labels)
-    plt.show()
 
 def one_pie_chart(data, label, pie_labels=[]):
     explode = (0, 0, 0, 0.1)
@@ -120,7 +128,6 @@ def one_pie_chart(data, label, pie_labels=[]):
     ax1.pie(data, explode=explode, labels=pie_labels, autopct='%1.1f%%',
             shadow=True, startangle=90)
     ax1.axis('equal')
-    plt.show()
 
 def two_pie_charts(data1, data2, label1, label2, pie_labels=[]):
     explode = (0, 0, 0, 0.1)
@@ -136,7 +143,6 @@ def two_pie_charts(data1, data2, label1, label2, pie_labels=[]):
     ax2.pie(data2, explode=explode, labels=pie_labels, autopct='%1.1f%%',
             shadow=True, startangle=90)
     ax2.axis('equal')
-    plt.show()
 
 '''
 This function takes in the outcome and backtround DataFrame,
