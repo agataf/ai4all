@@ -137,3 +137,26 @@ def two_pie_charts(data1, data2, label1, label2, pie_labels=[]):
             shadow=True, startangle=90)
     ax2.axis('equal')
     plt.show()
+
+'''
+This function takes in the outcome and backtround DataFrame,
+a list of desired background variables and a list desired outcome_vars,
+and subselects them from the background and output frames.
+It returns a single DataFrame containing the desired columns, where 
+corresponding rows between the two DataFrames have been subselected.
+'''
+def pick_out_variables(background, output, background_vars, outcome_vars, remove_nans=False, remove_negatives=False):
+    train_X = background.loc[outcome.index]
+    new_frame = train_X[background_vars]
+    new_frame[outcome_vars] = output[outcome_vars]
+    if remove_nans:
+        if len(new_frame.shape)>1:
+            new_frame = new_frame[(~np.isnan(new_frame)).all(1)]
+        else:
+            new_frame = new_frame[~np.isnan(new_frame)]
+    if remove_negatives:
+        if len(new_frame.shape)>1:
+            new_frame = new_frame[(new_frame>=0).all(1)]
+        else:
+            new_frame = new_frame[new_frame>=0]
+    return new_frame
