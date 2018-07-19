@@ -3,3 +3,4 @@ output/
 *.png
 *.svg
 *.dot
+*__pycache__/
