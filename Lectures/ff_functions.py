@@ -151,7 +151,7 @@ and subselects them from the background and output frames.
 It returns a single DataFrame containing the desired columns, where 
 corresponding rows between the two DataFrames have been subselected.
 '''
-def pick_out_variables(background, output, background_vars, outcome_vars, remove_nans=False, remove_negatives=False):
+def pick_challenge_variables(background, output, background_vars, outcome_vars, remove_nans=False, remove_negatives=False):
     train_X = background.loc[outcome.index]
     new_frame = train_X[background_vars]
     new_frame[outcome_vars] = output[outcome_vars]
@@ -166,3 +166,28 @@ def pick_out_variables(background, output, background_vars, outcome_vars, remove
         else:
             new_frame = new_frame[new_frame>=0]
     return new_frame
+
+'''
+This function takes in the backtround DataFrame,
+a list of desired background variables,
+and subselects them from the background frame.
+It returns a single DataFrame containing the desired columns, where 
+corresponding rows between the two DataFrames have been subselected.
+
+The function also provides the options to remove nan variables and remove negative values.
+'''
+def pick_ff_variables(background, background_vars, remove_nans=False, remove_negatives=False):
+    new_frame = background[background_vars]
+    if remove_nans:
+        if len(new_frame.shape)>1:
+            new_frame = new_frame[(~np.isnan(new_frame)).all(1)]
+        else:
+            new_frame = new_frame[~np.isnan(new_frame)]
+    if remove_negatives:
+        if len(new_frame.shape)>1:
+            new_frame = new_frame[(new_frame>=0).all(1)]
+        else:
+            new_frame = new_frame[new_frame>=0]
+    return new_frame
+
+    
