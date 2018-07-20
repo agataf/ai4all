@@ -3,4 +3,5 @@ output/
 *.png
 *.svg
 *.dot
-*__pycache__/
+Lectures/__pycache__/
+__pychache__/

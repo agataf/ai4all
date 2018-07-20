@@ -36,12 +36,16 @@ def select_nonnegative(data):
 '''
 Plot a histogram based on a 1D DataFrame
 '''
-def plot_one_histogram(data, label="", xlabel="", ylabel="", title=""):
-    max_val = int(max(data))
-    min_val = int(min(data))
-    bins = np.linspace(min_val, max_val, min(max_val-min_val,100))
+def plot_histogram(data, labels=[], xlabel="", ylabel="", title=""):
+    max_val = int(np.max(data.values))
+    min_val = int(np.min(data.values))
+    bins = np.linspace(min_val, max_val, min(max_val-min_val,50))
     fig = plt.figure(figsize=(7,7))
-    plt.hist(data, bins, alpha=0.5, label=label)
+    if len(data.shape) > 1:
+        for i,column in enumerate(data.columns):
+            plt.hist(data[column], bins, alpha=1/len(data.shape), label=labels[i])
+    else:
+        plt.hist(data.values, bins, alpha=0.5, label=labels[0])
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
@@ -190,4 +194,3 @@ def pick_ff_variables(background, background_vars, remove_nans=False, remove_neg
             new_frame = new_frame[new_frame>=0]
     return new_frame
 
-    

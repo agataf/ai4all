@@ -1,1 +1,14 @@
-requests==2.11.1
+pandas
+numpy
+matplotlib
+scipy
+fancyimpute
+sys
+os
+graphviz
+pydotplus
+ipython
+jupyter
+svglib
+reportlab
+mpl_toolkits
