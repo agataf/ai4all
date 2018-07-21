@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy.stats as stats
 import pandas as pd
+from mpl_toolkits.mplot3d import Axes3D
+
 
 '''
 This function removes rows containing NaNs from a 
-DataFrame. Works for both 1D and 2D DataFrames.
+DataFrame. 
 '''
 def remove_nan(data):
     if len(data.shape)>1:
@@ -15,7 +16,7 @@ def remove_nan(data):
 
 '''
 This function removes rows with values below or equal to 0 from a 
-DataFrame. Works for both 1D and 2D DataFrames.
+DataFrame. 
 '''
 def select_above_zero(data):
     if len(data.shape)>1:
@@ -34,22 +35,203 @@ def select_nonnegative(data):
         return data[data>=0]
 
 '''
-Plot a histogram based on a 1D DataFrame
+This function takes in the backtround DataFrame,
+a list of desired background variables,
+and subselects them from the background frame.
+It returns a single DataFrame containing the desired columns, where 
+corresponding rows between the two DataFrames have been subselected.
+
+The function also provides the options to remove nan variables and remove negative values.
+
+Input arguments:
+
+Required:
+dataframe: the orginal DataFrame (to be reduced)
+features: a list of column names to subselect from the dataframe
+
+Additional (with default values filled in):
+remove_nans: if True, remove rows containing NaN values
+remove_negatives: if True, remove rows containing negative values
+
+
+Output: 
+a pandas dataframe containing only selected columns (features).
+'''
+def pick_ff_variables(dataframe, features, remove_nans=False, remove_negatives=False):
+    # For exery feature inside the list of features, make sure it's contained in the columns
+    for ft in features:
+        if ft not in dataframe.columns:
+            print("Feature " + ft + " is in NOT the columns - provide other features.")
+    
+    # select only the columns corresponding to desired features
+    new_frame = dataframe[features]
+    
+    # option to remove NaNs
+    if remove_nans:
+        if len(new_frame.shape)>1:
+            new_frame = new_frame[(~np.isnan(new_frame)).all(1)]
+        else:
+            new_frame = new_frame[~np.isnan(new_frame)]
+    
+    # option to remove negative values
+    if remove_negatives:
+        if len(new_frame.shape)>1:
+            new_frame = new_frame[(new_frame>=0).all(1)]
+        else:
+            new_frame = new_frame[new_frame>=0]
+            
+    print("Data frame with ", new_frame.shape[0], " rows and ", new_frame.shape[1], "columns.")
+    return new_frame
+
+
+'''
+Plot a histogram based on a DataFrame "data"
+
+Input arguments:
+
+Required:
+data: the pandas DataFrame to be plotted
+
+Additional (with default values filled in):
+labels: a list of labels for each column of the DataFrame
+xlabel: label for the x axis
+ylabel: label for the y axis
+title: plot title
+
+Output: 
+Histogram plotted directly in notebook
 '''
 def plot_histogram(data, labels=[], xlabel="", ylabel="", title=""):
+    
+    # Set the ranges for X and Y coorinates to be the lowest and highest values observed
     max_val = int(np.max(data.values))
     min_val = int(np.min(data.values))
+    
+    # choose ranges into which we'll "bin" (count) occurences of variables
     bins = np.linspace(min_val, max_val, min(max_val-min_val,50))
+    
+    # set figure size
     fig = plt.figure(figsize=(7,7))
+    
+    # two options for dataframes with one vs more than one column
     if len(data.shape) > 1:
         for i,column in enumerate(data.columns):
+            # build the histogram from a given column, bin it
+            # set how "see-though" it is (alpha parameters)
+            # set the label which will be displayed witht his histogram
             plt.hist(data[column], bins, alpha=1/len(data.shape), label=labels[i])
     else:
         plt.hist(data.values, bins, alpha=0.5, label=labels[0])
+        
+    # Set x and y corrdinates labels, title    
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
+    
+    # put the legend in the upper right corner
     plt.legend(loc="upper right")
+
+'''
+This function takes in two arrays of equal length (xdata, ydata)
+and plots them against each other in a scatterplot
+
+Input arguments:
+
+Required:
+xdata: a column of a Pandas DataFrame, data to be plotted against the x axis
+ydata: a column of a Pandas DataFrame, data to be plotted against the y axis
+(must be same length as xdata)
+
+Additional (with default values filled in):
+xlabel: label for the x axis (string)
+ylabel: label for the y axis (string)
+title: plot title (string)
+plot_diagonal: if true (boolean)
+
+
+Output: 
+Scatterplot plotted directly in notebook
+'''
+def scatterplot(xdata, ydata, xlabel="", ylabel="", title="", plot_diagonal=False):
+    
+    # start new figure with sizes 7, 7 (try changing the numbers
+    # to see the impact on the size of printed plot)
+    fig = plt.figure(figsize=(7,7))
+    
+    # set the ranges for x and y axes to be between
+    # the minimum value and the maximum value
+    # (with an additional margin of 1 on each side for clarity)
+    plt.xlim(min(xdata)-1,max(xdata)+1)
+    plt.ylim(min(ydata)-1,max(ydata)+1)
+    
+    if plot_diagonal:
+        x = np.linspace(min(xdata)-1,max(xdata)+1, 100)
+        plt.plot(x, x)
+    
+    # plot the data
+    plt.scatter(xdata, ydata)
+    
+    # set the selected labels for x and y axes, and title (empty by default)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+
+'''
+This function converts a pandas 1D series to a numpy 2D array (for reference, see lecture 2.2),
+which can be used with sklearn functions
+'''
+def pandas_to_2d_numpy(pandas_series):
+    num_rows = pandas_series.shape[0]
+    # cast the Pandas Series to a numpy array (because sklearn works with numpy)
+    numpy_series = np.array(pandas_series)
+    # expand the number of dimensions (from (d,0) to (d,1)) - 1d list to 2d list
+    numpy_2d_series = numpy_series.reshape(num_rows,1)
+    return numpy_2d_series
+
+from mpl_toolkits.mplot3d import Axes3D
+
+'''
+This function takes in three arrays of equal length (xdata, ydata, zdata)
+and plots them against each other in a 3D scatterplot
+
+Required:
+xdata: a column of a Pandas DataFrame, data to be plotted against the x axis
+ydata: a column of a Pandas DataFrame, data to be plotted against the y axis
+xdata: a column of a Pandas DataFrame, data to be plotted against the x axis
+(must all be same length)
+
+Additional (with default values filled in):
+xlabel: label for the x axis (string)
+ylabel: label for the y axis (string)
+zlabel: label for the z axis (string)
+title: plot title (string)
+slope: 2d list with x and y slopes, to plot a line
+intercept: a float or int with z-intercept, to plot a line
+'''
+def scatter_3d(xdata, ydata, zdata, xlabel="", ylabel="", zlabel="", title="", slope=None, intercept=None):
+    
+    # choose figure size
+    fig = plt.figure(figsize=(7,7))
+    
+    # create a "subplot" and make it 3d
+    ax = fig.add_subplot(111, projection='3d')
+    ax.axis('equal')
+    
+    # plot the data
+    ax.scatter(xdata, ydata, zdata)
+    
+    # set the selected labels for x and y axes, and title (empty by default)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_zlabel(zlabel)
+    ax.set_title(title)
+    
+    # optionally: draw a line, when slope and intercept provided
+    if (slope is not None) and (intercept is not None):
+        x = np.linspace(min(xdata)-1,max(xdata)+1, 100)
+        y = np.linspace(min(ydata)-1,max(ydata)+1, 100)
+        ax.plot(x, y, slope[0]*x+slope[1]*y+intercept)
+
 
 '''
 Plot two overlapping histograms based on two 1D DataFrames
@@ -70,19 +252,31 @@ def plot_two_histograms(data1, data2, label1="", label2="", xlabel="", ylabel=""
     plt.title(title)
     # Plot a legend so that we can match the color of the histogram to the data.
     plt.legend(loc="upper right")
+
 '''
-This function takes in two arrays of equal length (xdata, ydata)
-and plots them against each other in a scatterplot
+This function takes in a DataFrame and returns a correlation matrix heatmap for all variables
+present in the frame.
+
+Input arguments:
+
+Required:
+frame: a Pandas DataFrame, containing features whose correlations we're interested in
+
+Output: 
+Heatmap-colored correlation plot
 '''
-def scatterplot(xdata, ydata, xlabel="", ylabel="", title=""):
-    fig = plt.figure(figsize=(7,7))
-    plt.scatter(xdata, ydata)
-    #plt.plot([0,data_max],[0,data_max])
-    plt.xlim(min(xdata)-1,max(xdata)+1)
-    plt.ylim(min(ydata)-1,max(ydata)+1)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.title(title)
+def get_corr_plot(frame):
+    
+    # calculate the correlations between all variables in the frame
+    correlations = frame.astype(float).corr()
+    
+    # plot the figure
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    
+    # set the color scale
+    cax = ax.matshow(correlations, vmin=-1, vmax=1)
+    fig.colorbar(cax)
 
 '''
 This function takes in two arrays of equal length (xdata, ydata)
@@ -159,29 +353,6 @@ def pick_challenge_variables(background, output, background_vars, outcome_vars, 
     train_X = background.loc[outcome.index]
     new_frame = train_X[background_vars]
     new_frame[outcome_vars] = output[outcome_vars]
-    if remove_nans:
-        if len(new_frame.shape)>1:
-            new_frame = new_frame[(~np.isnan(new_frame)).all(1)]
-        else:
-            new_frame = new_frame[~np.isnan(new_frame)]
-    if remove_negatives:
-        if len(new_frame.shape)>1:
-            new_frame = new_frame[(new_frame>=0).all(1)]
-        else:
-            new_frame = new_frame[new_frame>=0]
-    return new_frame
-
-'''
-This function takes in the backtround DataFrame,
-a list of desired background variables,
-and subselects them from the background frame.
-It returns a single DataFrame containing the desired columns, where 
-corresponding rows between the two DataFrames have been subselected.
-
-The function also provides the options to remove nan variables and remove negative values.
-'''
-def pick_ff_variables(background, background_vars, remove_nans=False, remove_negatives=False):
-    new_frame = background[background_vars]
     if remove_nans:
         if len(new_frame.shape)>1:
             new_frame = new_frame[(~np.isnan(new_frame)).all(1)]
