@@ -53,17 +53,23 @@ Starting this year, there is also an API available which allow us to subselect o
 
   `git clone https://github.com/agataf/ai4all`
   
-- Follow the procedure above (# Data Download) to download data from the OPR website.
+- Follow the procedure above ([Data Download](#data-download)) to download data from the OPR website.
 
 - download the data to a directory called ai4all_data next to ai4all
 
   `cd ai4all_dir`
-
+  
   `cp path_to_data/ai4all_data .`
 
+Resulting in the following directory stucture
+```
+ai4all_dir
+└── ai4all (cloned from this dir)
+└── ai4all_data
+```                  
 - MAKE SURE YOU'RE USING PYTHON 3!
 
-- install all dependencies present in requirements
+- install all dependencies present in requirements.txt
 
 - to run jupyter notebook:
 
