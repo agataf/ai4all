@@ -53,7 +53,7 @@ Starting this year, there is also an API available which allow us to subselect o
 
   `git clone https://github.com/agataf/ai4all`
   
-- Follow the procedure above ([Data Download](#Data-Download)) to download data from the OPR website.
+- Follow the procedure above ([Data Download](#data-download)) to download data from the OPR website.
 
 - download the data to a directory called ai4all_data next to ai4all
 
