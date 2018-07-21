@@ -161,11 +161,11 @@ def scatterplot(xdata, ydata, xlabel="", ylabel="", title="", plot_diagonal=Fals
     # set the ranges for x and y axes to be between
     # the minimum value and the maximum value
     # (with an additional margin of 1 on each side for clarity)
-    plt.xlim(min(xdata)-1,max(xdata)+1)
-    plt.ylim(min(ydata)-1,max(ydata)+1)
+    plt.xlim(min(xdata)-5,max(xdata)+5)
+    plt.ylim(min(ydata)-5,max(ydata)+5)
     
     if plot_diagonal:
-        x = np.linspace(min(xdata)-1,max(xdata)+1, 100)
+        x = np.linspace(min(xdata)-5,max(xdata)+5, 100)
         plt.plot(x, x)
     
     # plot the data
@@ -286,10 +286,10 @@ With a line with a given intercept and slope overlaid on top
 def scatterplot_with_line(xdata, ydata, slope, intercept, xlabel="", ylabel="", title=""):
     fig = plt.figure(figsize=(7,5))
     plt.scatter(xdata, ydata)
-    x = np.linspace(min(xdata)-1,max(xdata)+1, 100)
-    plt.plot(x, slope*x+intercept)
-    plt.xlim(min(xdata)-1,max(xdata)+1)
-    plt.ylim(min(ydata)-1,max(ydata)+1)
+    x = np.linspace(min(xdata)-5,max(xdata)+5, 100)
+    plt.plot(x, slope*x+intercept,lw=2,c='r')
+    plt.xlim(min(xdata)-5,max(xdata)+5)
+    plt.ylim(min(ydata)-5,max(ydata)+5)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
