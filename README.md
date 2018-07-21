@@ -62,13 +62,11 @@ Starting this year, there is also an API available which allow us to subselect o
   `cp path_to_data/ai4all_data .`
 
 Resulting in the following directory stucture
-
+```
 ai4all_dir
-
 └── ai4all (cloned from this dir)
-
 └── ai4all_data
-                    
+```                  
 - MAKE SURE YOU'RE USING PYTHON 3!
 
 - install all dependencies present in requirements.txt
