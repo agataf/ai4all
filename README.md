@@ -64,7 +64,9 @@ Starting this year, there is also an API available which allow us to subselect o
 Resulting in the following directory stucture
 
 ai4all_dir
+
 └── ai4all (cloned from this dir)
+
 └── ai4all_data
                     
 - MAKE SURE YOU'RE USING PYTHON 3!
