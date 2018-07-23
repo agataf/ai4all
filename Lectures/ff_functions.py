@@ -152,7 +152,7 @@ plot_diagonal: if true (boolean)
 Output: 
 Scatterplot plotted directly in notebook
 '''
-def scatterplot(xdata, ydata, xlabel="", ylabel="", title="", plot_diagonal=False):
+def scatterplot(xdata, ydata, xlabel="", ylabel="", title="", plot_diagonal=False, gap=1):
     
     # start new figure with sizes 7, 7 (try changing the numbers
     # to see the impact on the size of printed plot)
@@ -161,11 +161,11 @@ def scatterplot(xdata, ydata, xlabel="", ylabel="", title="", plot_diagonal=Fals
     # set the ranges for x and y axes to be between
     # the minimum value and the maximum value
     # (with an additional margin of 1 on each side for clarity)
-    plt.xlim(min(xdata)-5,max(xdata)+5)
-    plt.ylim(min(ydata)-5,max(ydata)+5)
+    plt.xlim(min(xdata)-gap,max(xdata)+gap)
+    plt.ylim(min(ydata)-gap,max(ydata)+gap)
     
     if plot_diagonal:
-        x = np.linspace(min(xdata)-5,max(xdata)+5, 100)
+        x = np.linspace(min(xdata)-gap,max(xdata)+gap, 100)
         plt.plot(x, x)
     
     # plot the data
