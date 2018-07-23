@@ -180,13 +180,14 @@ def scatterplot(xdata, ydata, xlabel="", ylabel="", title="", plot_diagonal=Fals
 This function converts a pandas 1D series to a numpy 2D array (for reference, see lecture 2.2),
 which can be used with sklearn functions
 '''
-def pandas_to_2d_numpy(pandas_series):
-    num_rows = pandas_series.shape[0]
+def pandas_to_2d_numpy(pandas_df):
+    num_rows = pandas_df.shape[0]
     # cast the Pandas Series to a numpy array (because sklearn works with numpy)
-    numpy_series = np.array(pandas_series)
+    numpy_df = np.array(pandas_df) # remove title
     # expand the number of dimensions (from (d,0) to (d,1)) - 1d list to 2d list
-    numpy_2d_series = numpy_series.reshape(num_rows,1)
-    return numpy_2d_series
+    if len(pandas_df.shape) == 1:
+        numpy_df = numpy_df.reshape(num_rows,1)
+    return numpy_df
 
 from mpl_toolkits.mplot3d import Axes3D
 
