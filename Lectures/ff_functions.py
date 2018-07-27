@@ -103,7 +103,7 @@ Histogram plotted directly in notebook
 '''
 def plot_histogram(data, labels=[], xlabel="", ylabel="", title=""):
     
-    # Set the ranges for X and Y coorinates to be the lowest and highest values observed
+    # Set the ranges for X and Y coordinates to be the lowest and highest values observed
     max_val = int(np.max(data.values))
     min_val = int(np.min(data.values))
     
@@ -114,16 +114,27 @@ def plot_histogram(data, labels=[], xlabel="", ylabel="", title=""):
     fig = plt.figure(figsize=(7,7))
     
     # two options for dataframes with one vs more than one column
-    if len(data.shape) > 1:
+    if isinstance(data,pd.DataFrame):
         for i,column in enumerate(data.columns):
             # build the histogram from a given column, bin it
             # set how "see-though" it is (alpha parameters)
             # set the label which will be displayed witht his histogram
-            plt.hist(data[column], bins, alpha=1/len(data.shape), label=labels[i])
+            
+            # if labels were passed use them
+            if labels:
+                plt.hist(data[column], bins, alpha=1/len(data.shape), label=labels[i], edgecolor='black', linewidth=1.2)
+            # otherwise, ignore
+            else:
+                plt.hist(data[column], bins, alpha=1/len(data.shape), edgecolor='black', linewidth=1.2)
+
     else:
-        plt.hist(data.values, bins, alpha=0.5, label=labels[0])
+        if labels:
+            plt.hist(data, bins, alpha=1/len(data.shape), label=labels[0], edgecolor='black', linewidth=1.2)
+        # otherwise, ignore
+        else:
+            plt.hist(data, bins, alpha=1/len(data.shape), edgecolor='black', linewidth=1.2)
         
-    # Set x and y corrdinates labels, title    
+    # Set x and y coordinates labels, title    
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
@@ -133,7 +144,7 @@ def plot_histogram(data, labels=[], xlabel="", ylabel="", title=""):
 
 '''
 This function takes in two arrays of equal length (xdata, ydata)
-and plots them against each other in a scatterplot
+and plots them against each other in a 
 
 Input arguments:
 
@@ -169,7 +180,7 @@ def scatterplot(xdata, ydata, xlabel="", ylabel="", title="", plot_diagonal=Fals
         plt.plot(x, x)
     
     # plot the data
-    plt.scatter(xdata, ydata)
+    plt.scatter(xdata, ydata, alpha=0.5)
     
     # set the selected labels for x and y axes, and title (empty by default)
     plt.xlabel(xlabel)
@@ -219,7 +230,7 @@ def scatter_3d(xdata, ydata, zdata, xlabel="", ylabel="", zlabel="", title="", s
     ax.axis('equal')
     
     # plot the data
-    ax.scatter(xdata, ydata, zdata)
+    ax.scatter(xdata, ydata, zdata, alpha=0.5)
     
     # set the selected labels for x and y axes, and title (empty by default)
     ax.set_xlabel(xlabel)
@@ -284,9 +295,9 @@ This function takes in two arrays of equal length (xdata, ydata)
 and plots them against each other in a scatterplot
 With a line with a given intercept and slope overlaid on top
 '''
-def scatterplot_with_line(xdata, ydata, slope, intercept, xlabel="", ylabel="", title=""):
+def scatterplot_with_line(xdata, ydata, intercept, slope, xlabel="", ylabel="", title=""):
     fig = plt.figure(figsize=(7,5))
-    plt.scatter(xdata, ydata)
+    plt.scatter(xdata, ydata, alpha=0.5)
     x = np.linspace(min(xdata)-5,max(xdata)+5, 100)
     plt.plot(x, slope*x+intercept,lw=2,c='r')
     plt.xlim(min(xdata)-5,max(xdata)+5)
